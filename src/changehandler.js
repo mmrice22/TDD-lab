@@ -40,20 +40,30 @@ class ChangeHandler {
 
   giveChange() {
     // TODO return the correct change in the following format...
+    // while (this.cashTendered > this.amountDue) {
+    //   if (this.cashTendered - "quarter") {
+    //     quarter += 1;
+    //     this.cashTendered = 25;
+    //   } else if (this.cashTendered !== "quarter") {
+    //     quarter = 0;
+    //   }
+    let changeDue = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 };
     while (this.cashTendered > this.amountDue) {
-      if (this.cashTendered - "quarter") {
-        quarter += 1;
-        this.cashTendered = 25;
-      } else if (this.cashTendered !== "quarter") {
-        quarter = 0;
+      if (this.cashTendered - this.amountDue >= 25) {
+        this.cashTendered -= 25;
+        changeDue.quarters++;
+      } else if (this.cashTendered - this.amountDue >= 10) {
+        this.cashTendered -= 10;
+        changeDue.dimes++;
+      } else if (this.cashTendered - this.amountDue >= 5) {
+        this.cashTendered -= 5;
+        changeDue.nickels++;
+      } else {
+        this.cashTendered -= 1;
+        changeDue.pennies++;
       }
     }
-    return {
-      quarters: 0,
-      dimes: 0,
-      nickels: 0,
-      pennies: 0
-    };
+    return changeDue;
   }
 }
 
